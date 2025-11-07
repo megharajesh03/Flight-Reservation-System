@@ -9,8 +9,8 @@ import com.ust.frs.bean.ScheduleBean;
 
 public interface Administrator {
 	public String addFlight(FlightBean flightBean);
-	public boolean modifyFlight(FlightBean flightBean);
-	public int removeFlight(ArrayList<String> flightID);
+	public boolean modifyFlight(ArrayList<FlightBean> flightBeanArray);
+	public int removeFlight(ArrayList<FlightBean> flightID);
 	public String addSchedule(ScheduleBean scheduleBean);
 	boolean modifySchedule(ScheduleBean scheduleBean);
 	int removeSchedule(ArrayList<String> scheduleId);
@@ -23,5 +23,5 @@ public interface Administrator {
 	ArrayList<RouteBean> viewByAllRoute();
 	ArrayList<ScheduleBean> viewByAllSchedule(); 
 	ScheduleBean viewByScheduleId(String scheduleId); 
-	ArrayList<PassengerBean> viewPassengersByFlight(String scheduleId); 
+	ArrayList<PassengerBean> viewPassengersByFlight(String scheduleId);
 }

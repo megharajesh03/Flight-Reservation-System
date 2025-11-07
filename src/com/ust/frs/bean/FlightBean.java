@@ -5,6 +5,15 @@ public class FlightBean {
 	private String flightName;
 	private int seatingCapacity;
 	private int reservationCapacity;
+	/*
+	public FlightBean(String flightID, String flightName, int seatingCapacity, int reservationCapacity) {
+		super();
+		this.flightID = flightID;
+		this.flightName = flightName;
+		this.seatingCapacity = seatingCapacity;
+		this.reservationCapacity = reservationCapacity;
+	}
+	*/
 	public String getFlightID() {
 		return flightID;
 	}
@@ -29,4 +38,11 @@ public class FlightBean {
 	public void setReservationCapacity(int reservationCapacity) {
 		this.reservationCapacity = reservationCapacity;
 	}
+
+	@Override
+	public String toString() {
+		return "FlightBean [flightID=" + flightID + ", flightName=" + flightName + ", seatingCapacity="
+				+ seatingCapacity + ", reservationCapacity=" + reservationCapacity + "]";
+	}
+	
 }

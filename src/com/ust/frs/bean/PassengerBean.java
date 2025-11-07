@@ -6,6 +6,16 @@ public class PassengerBean {
 	private String gender;
 	private int age;
 	private int seatNo;
+		
+	public PassengerBean(String reservationID, String name, String gender, int age, int seatNo) {
+		super();
+		this.reservationID = reservationID;
+		this.name = name;
+		this.gender = gender;
+		this.age = age;
+		this.seatNo = seatNo;
+	}
+	
 	public String getReservationID() {
 		return reservationID;
 	}

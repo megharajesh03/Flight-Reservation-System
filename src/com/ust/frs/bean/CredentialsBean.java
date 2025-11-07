@@ -5,6 +5,15 @@ public class CredentialsBean {
 	private String password;
 	private String userType;
 	private int loginStatus;
+		
+	public CredentialsBean(String userID, String password, String userType, int loginStatus) {
+		super();
+		this.userID = userID;
+		this.password = password;
+		this.userType = userType;
+		this.loginStatus = loginStatus;
+	}
+	
 	public String getUserID() {
 		return userID;
 	}

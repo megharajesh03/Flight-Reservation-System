@@ -17,6 +17,26 @@ public class ProfileBean {
 	public String getUserID() {
 		return userID;
 	}
+	
+	public ProfileBean(String userID, String firstName, String lastname, String dateOfBirth, String gender,
+			String street, String location, String city, String state, String pincode, String mobileNo, String emailID,
+			String password) {
+		super();
+		this.userID = userID;
+		this.firstName = firstName;
+		this.lastname = lastname;
+		this.dateOfBirth = dateOfBirth;
+		this.gender = gender;
+		this.street = street;
+		this.location = location;
+		this.city = city;
+		this.state = state;
+		this.pincode = pincode;
+		this.mobileNo = mobileNo;
+		this.emailID = emailID;
+		this.password = password;
+	}
+
 	public void setUserID(String userID) {
 		this.userID = userID;
 	}

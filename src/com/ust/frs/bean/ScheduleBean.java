@@ -7,6 +7,17 @@ public class ScheduleBean {
 	private int travelDuration;
 	private String availableDays;
 	private String departureTime;
+	
+	public ScheduleBean(String scheduleID, String flightID, String routeID, int travelDuration, String availableDays,
+			String departureTime) {
+		super();
+		this.scheduleID = scheduleID;
+		this.flightID = flightID;
+		this.routeID = routeID;
+		this.travelDuration = travelDuration;
+		this.availableDays = availableDays;
+		this.departureTime = departureTime;
+	}
 	public String getScheduleID() {
 		return scheduleID;
 	}
