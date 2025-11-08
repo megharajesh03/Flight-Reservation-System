@@ -11,8 +11,7 @@ public class DataStore {
     public static List<ReservationBean> reservations = new ArrayList<>();
     public static List<CredentialsBean> users = new ArrayList<>();
 
-
-    // Add some sample data so you can test immediately
+    //sample data
     static {
         FlightBean f1 = new FlightBean();
         f1.setFlightID("AI1001");

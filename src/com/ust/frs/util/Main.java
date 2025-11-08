@@ -1,11 +1,11 @@
 package com.ust.frs.util;
+//import com.ust.frs.util.Authentication;
+//import com.ust.frs.util.AuthenticationImpl;
 
 import java.util.*;
 import com.ust.frs.bean.*;
 import com.ust.frs.service.*;
 
-import com.ust.frs.util.Authentication;
-import com.ust.frs.util.AuthenticationImpl;
 import com.ust.frs.bean.CredentialsBean;
 import com.ust.frs.dao.DataStore;
 
@@ -77,43 +77,43 @@ public class Main {
     }
 
     /* ---------------- ADMIN MENU ---------------- */
-    /* ---------------- ADMIN MENU ---------------- */
     private static void adminMenu() {
         boolean back = false;
         while (!back) {
             System.out.println("\n---- Administrator Menu ----");
-            System.out.println("1. Add Flight");
-            System.out.println("2. View All Flights");
-            System.out.println("3. Delete Flight");
-            System.out.println("4. Modify Flight");
-            System.out.println("5. Add Route");
-            System.out.println("6. View All Routes");
-            System.out.println("7. Delete Route");
-            System.out.println("8. Modify Route");
-            System.out.println("9. Add Schedule");
-            System.out.println("10. View All Schedules");
-            System.out.println("11. Delete Schedule");
-            System.out.println("12. Modify Schedule");
-            System.out.println("0. Back");
+            System.out.println("AD-001: Add Flight");
+            System.out.println("AD-002: View All Flights");
+            System.out.println("AD-003: Delete Flight");
+            System.out.println("AD-004: Modify Flight");
+            System.out.println("AD-005: Add Route");
+            System.out.println("AD-006: View All Routes");
+            System.out.println("AD-007: Delete Route");
+            System.out.println("AD-008: Modify Route");
+            System.out.println("AD-009: Add Schedule");
+            System.out.println("AD-010: View All Schedules");
+            System.out.println("AD-011: Delete Schedule");
+            System.out.println("AD-012: Modify Schedule");
+//          System.out.println("AD-013: View Passenger");
+            System.out.println("AD-000: Back");
             System.out.print("Choice: ");
-            int ch = sc.nextInt();
-            sc.nextLine();
+            String ch = sc.nextLine();
 
             switch (ch) {
-	            case 1 -> addFlight();
-	            case 2 -> viewFlights();
-	            case 3 -> deleteFlight();
-	            case 4 -> modifyFlight();
-	            case 5 -> addRoute();
-	            case 6 -> viewRoutes();
-	            case 7 -> deleteRoute();
-	            case 8 -> modifyRoute();
-	            case 9 -> addSchedule();
-	            case 10 -> viewSchedules();
-	            case 11 -> deleteSchedule();
-	            case 12 -> modifySchedule();
-	            case 0 -> back = true;
-                default -> System.out.println("Invalid choice!");
+	            case "AD-001" -> addFlight();
+	            case "AD-002" -> viewFlights();
+	            case "AD-003" -> deleteFlight();
+	            case "AD-004" -> modifyFlight();
+	            case "AD-005" -> addRoute();
+	            case "AD-006" -> viewRoutes();
+	            case "AD-007" -> deleteRoute();
+	            case "AD-008" -> modifyRoute();
+	            case "AD-009" -> addSchedule();
+	            case "AD-010" -> viewSchedules();
+	            case "AD-011" -> deleteSchedule();
+	            case "AD-012" -> modifySchedule();
+//	            case "AD-013" -> viewPassenger();
+	            case "AD-000" -> back = true;
+                default -> System.out.println("Invalid choice.");
             }
         }
     }
@@ -124,22 +124,23 @@ public class Main {
         boolean back = false;
         while (!back) {
             System.out.println("\n---- Customer Menu ----");
-            System.out.println("1. View Schedule by Route");
-            System.out.println("2. Reserve Ticket");
-            System.out.println("3. Cancel Ticket");
-            System.out.println("4. View Ticket");
-            System.out.println("0. Back");
+//			System.out.println("US-001: Register User Profile");
+            System.out.println("US-002: View Schedule by Route");
+            System.out.println("US-003: Reserve Ticket");
+            System.out.println("US-004: Cancel Ticket");
+            System.out.println("US-005: View Ticket");
+            System.out.println("US-000: Back");
             System.out.print("Choice: ");
-            int ch = sc.nextInt();
-            sc.nextLine();
+            String ch = sc.nextLine();
 
             switch (ch) {
-                case 1 -> viewScheduleByRoute();
-                case 2 -> reserveTicket();
-                case 3 -> cancelTicket();
-                case 4 -> viewTicket();
-                case 0 -> back = true;
-                default -> System.out.println("Invalid choice!");
+//              case "US-001" -> RegisterUser();
+                case "US-002" -> viewScheduleByRoute();
+                case "US-003" -> reserveTicket();
+                case "US-004" -> cancelTicket();
+                case "US-005" -> viewTicket();
+                case "US-000" -> back = true;
+                default -> System.out.println("Invalid choice.");
             }
         }
     }
@@ -176,7 +177,7 @@ public class Main {
         fb.setFlightID(id);
         list.add(fb);
         boolean deleted = adminService.removeFlight(list);
-        System.out.println(deleted == true ? "Flight deleted!" : "Flight not found.");
+        System.out.println(deleted == true ? "Flight deleted." : "Flight not found.");
     }
     private static void modifyFlight() {
         System.out.print("Enter Flight ID to modify: ");
@@ -212,7 +213,8 @@ public class Main {
 
         System.out.println(updated ? "Flight updated successfully!" : "Update failed.");
     }
-
+    
+    /* ---------------- ROUTE FUNCTIONS ---------------- */
 
     private static void addRoute() {
         RouteBean r = new RouteBean();
