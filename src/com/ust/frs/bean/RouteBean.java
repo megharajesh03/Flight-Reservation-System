@@ -6,7 +6,7 @@ public class RouteBean {
 	private String destination;
 	private int distance;
 	private double fare;
-	
+	/*
 	public RouteBean(String routeID, String source, String destination, int distance, double fare) {
 		super();
 		this.routeID = routeID;
@@ -15,6 +15,7 @@ public class RouteBean {
 		this.distance = distance;
 		this.fare = fare;
 	}
+	*/
 	public String getRouteID() {
 		return routeID;
 	}
@@ -45,4 +46,10 @@ public class RouteBean {
 	public void setFare(double fare) {
 		this.fare = fare;
 	}
+	@Override
+	public String toString() {
+		return "RouteBean [routeID=" + routeID + ", source=" + source + ", destination=" + destination + ", distance="
+				+ distance + ", fare=" + fare + "]";
+	}
+	
 }

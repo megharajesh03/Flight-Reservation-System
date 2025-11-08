@@ -7,7 +7,7 @@ public class ScheduleBean {
 	private int travelDuration;
 	private String availableDays;
 	private String departureTime;
-	
+	/*
 	public ScheduleBean(String scheduleID, String flightID, String routeID, int travelDuration, String availableDays,
 			String departureTime) {
 		super();
@@ -18,6 +18,7 @@ public class ScheduleBean {
 		this.availableDays = availableDays;
 		this.departureTime = departureTime;
 	}
+	*/
 	public String getScheduleID() {
 		return scheduleID;
 	}
@@ -54,4 +55,11 @@ public class ScheduleBean {
 	public void setDepartureTime(String departureTime) {
 		this.departureTime = departureTime;
 	}
+	@Override
+	public String toString() {
+		return "ScheduleBean [scheduleID=" + scheduleID + ", flightID=" + flightID + ", routeID=" + routeID
+				+ ", travelDuration=" + travelDuration + ", availableDays=" + availableDays + ", departureTime="
+				+ departureTime + "]";
+	}
+	
 }

@@ -6,7 +6,7 @@ public class PassengerBean {
 	private String gender;
 	private int age;
 	private int seatNo;
-		
+		/*
 	public PassengerBean(String reservationID, String name, String gender, int age, int seatNo) {
 		super();
 		this.reservationID = reservationID;
@@ -15,6 +15,7 @@ public class PassengerBean {
 		this.age = age;
 		this.seatNo = seatNo;
 	}
+	*/
 	
 	public String getReservationID() {
 		return reservationID;
@@ -46,4 +47,11 @@ public class PassengerBean {
 	public void setSeatNo(int seatNo) {
 		this.seatNo = seatNo;
 	}
+
+	@Override
+	public String toString() {
+		return "PassengerBean [reservationID=" + reservationID + ", name=" + name + ", gender=" + gender + ", age="
+				+ age + ", seatNo=" + seatNo + "]";
+	}
+	
 }

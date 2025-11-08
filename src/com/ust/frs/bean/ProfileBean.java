@@ -112,5 +112,14 @@ public class ProfileBean {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public String toString() {
+		return "ProfileBean [userID=" + userID + ", firstName=" + firstName + ", lastname=" + lastname
+				+ ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", street=" + street + ", location="
+				+ location + ", city=" + city + ", state=" + state + ", pincode=" + pincode + ", mobileNo=" + mobileNo
+				+ ", emailID=" + emailID + ", password=" + password + "]";
+	}
+	
 	
 }

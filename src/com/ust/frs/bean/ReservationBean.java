@@ -10,7 +10,7 @@ public class ReservationBean {
 	private int noOfSeats;
 	private double totalFare;
 	private int bookingStatus;
-	
+	/*
 	public ReservationBean(String reservationID, String userID, String scheduleID, String reservationType,
 			String bookingDate, String journeyDate, int noOfSeats, double totalFare, int bookingStatus) {
 		super();
@@ -24,6 +24,7 @@ public class ReservationBean {
 		this.totalFare = totalFare;
 		this.bookingStatus = bookingStatus;
 	}
+	*/
 	public String getReservationID() {
 		return reservationID;
 	}
@@ -78,4 +79,12 @@ public class ReservationBean {
 	public void setBookingStatus(int bookingStatus) {
 		this.bookingStatus = bookingStatus;
 	}
+	@Override
+	public String toString() {
+		return "ReservationBean [reservationID=" + reservationID + ", userID=" + userID + ", scheduleID=" + scheduleID
+				+ ", reservationType=" + reservationType + ", bookingDate=" + bookingDate + ", journeyDate="
+				+ journeyDate + ", noOfSeats=" + noOfSeats + ", totalFare=" + totalFare + ", bookingStatus="
+				+ bookingStatus + "]";
+	}
+	
 }

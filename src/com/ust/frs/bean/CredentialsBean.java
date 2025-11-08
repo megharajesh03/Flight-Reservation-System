@@ -5,7 +5,7 @@ public class CredentialsBean {
 	private String password;
 	private String userType;
 	private int loginStatus;
-		
+	/*	
 	public CredentialsBean(String userID, String password, String userType, int loginStatus) {
 		super();
 		this.userID = userID;
@@ -13,7 +13,7 @@ public class CredentialsBean {
 		this.userType = userType;
 		this.loginStatus = loginStatus;
 	}
-	
+	*/
 	public String getUserID() {
 		return userID;
 	}
@@ -37,5 +37,12 @@ public class CredentialsBean {
 	}
 	public void setLoginStatus(int loginStatus) {
 		this.loginStatus = loginStatus;
+	}
+
+	@Override
+	public String toString() {
+		return "CredentialsBean [userID=" + userID + ", password=" + password + ", userType=" + userType
+				+ ", loginStatus=" + loginStatus + "]";
 	} 
+	
 }
