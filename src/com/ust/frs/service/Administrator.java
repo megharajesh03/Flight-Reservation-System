@@ -5,19 +5,21 @@ import com.ust.frs.bean.*;
 
 public interface Administrator {
     String addFlight(FlightBean flightBean);
-    boolean modifyFlight(ArrayList<FlightBean> flightBeanArray);            // simpler
-    boolean removeFlight(ArrayList<FlightBean> flightIDArray);                  // simpler
+    boolean modifyFlight(FlightBean flightBean);            // simpler
+    boolean removeFlight(int flightID);                  // simpler
+    FlightBean viewByFlightId(int flightId);
+    ArrayList<FlightBean> viewByAllFlights(); 
+
     String addSchedule(ScheduleBean scheduleBean);
     boolean modifySchedule(ScheduleBean scheduleBean);
-    boolean removeSchedule(ArrayList<String> scheduleId);              // simpler
+    boolean removeSchedule(int scheduleId);              // simpler
+    ArrayList<ScheduleBean> viewByAllSchedule(); 
+    ScheduleBean viewByScheduleId(int scheduleId); 
+    ArrayList<PassengerBean> viewPassengersByFlight(String scheduleId);
+
     String addRoute(RouteBean routeBean);
     boolean modifyRoute(RouteBean routeBean);
-    boolean removeRoute(ArrayList<String> routeId);                    // simpler
-    FlightBean viewByFlightId(String flightId);
-    RouteBean viewByRouteId(String routeId);
-    ArrayList<FlightBean> viewByAllFlights(); 
+    boolean removeRoute(int routeId);                    // simpler
+    RouteBean viewByRouteId(int routeId);
     ArrayList<RouteBean> viewByAllRoute();
-    ArrayList<ScheduleBean> viewByAllSchedule(); 
-    ScheduleBean viewByScheduleId(String scheduleId); 
-    ArrayList<PassengerBean> viewPassengersByFlight(String scheduleId);
 }

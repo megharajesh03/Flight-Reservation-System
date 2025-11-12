@@ -1,7 +1,7 @@
 package com.ust.frs.bean;
 
 public class RouteBean {
-	private String routeID;
+	private int routeID;
 	private String source;
 	private String destination;
 	private int distance;
@@ -16,10 +16,10 @@ public class RouteBean {
 		this.fare = fare;
 	}
 	*/
-	public String getRouteID() {
+	public int getRouteID() {
 		return routeID;
 	}
-	public void setRouteID(String routeID) {
+	public void setRouteID(int routeID) {
 		this.routeID = routeID;
 	}
 	public String getSource() {

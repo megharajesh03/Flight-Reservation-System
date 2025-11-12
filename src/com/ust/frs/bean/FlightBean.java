@@ -1,7 +1,7 @@
 package com.ust.frs.bean;
 
 public class FlightBean {
-	private String flightID;
+	private int flightID;
 	private String flightName;
 	private int seatingCapacity;
 	private int reservationCapacity;
@@ -14,10 +14,10 @@ public class FlightBean {
 		this.reservationCapacity = reservationCapacity;
 	}
 	*/
-	public String getFlightID() {
+	public int getFlightID() {
 		return flightID;
 	}
-	public void setFlightID(String flightID) {
+	public void setFlightID(int flightID) {
 		this.flightID = flightID;
 	}
 	public String getFlightName() {

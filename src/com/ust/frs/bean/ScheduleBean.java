@@ -1,12 +1,12 @@
 package com.ust.frs.bean;
 
 public class ScheduleBean {
-	private String scheduleID;
-	private String flightID;
-	private String routeID;
+	private int scheduleID;
+	private int flightID;
+	private int routeID;
 	private int travelDuration;
 	private String availableDays;
-	private String departureTime;
+	private int departureTime;
 	/*
 	public ScheduleBean(String scheduleID, String flightID, String routeID, int travelDuration, String availableDays,
 			String departureTime) {
@@ -19,22 +19,22 @@ public class ScheduleBean {
 		this.departureTime = departureTime;
 	}
 	*/
-	public String getScheduleID() {
+	public int getScheduleID() {
 		return scheduleID;
 	}
-	public void setScheduleID(String scheduleID) {
+	public void setScheduleID(int scheduleID) {
 		this.scheduleID = scheduleID;
 	}
-	public String getFlightID() {
+	public int getFlightID() {
 		return flightID;
 	}
-	public void setFlightID(String flightID) {
+	public void setFlightID(int flightID) {
 		this.flightID = flightID;
 	}
-	public String getRouteID() {
+	public int getRouteID() {
 		return routeID;
 	}
-	public void setRouteID(String routeID) {
+	public void setRouteID(int routeID) {
 		this.routeID = routeID;
 	}
 	public int getTravelDuration() {
@@ -49,10 +49,10 @@ public class ScheduleBean {
 	public void setAvailableDays(String availableDays) {
 		this.availableDays = availableDays;
 	}
-	public String getDepartureTime() {
+	public int getDepartureTime() {
 		return departureTime;
 	}
-	public void setDepartureTime(String departureTime) {
+	public void setDepartureTime(int departureTime) {
 		this.departureTime = departureTime;
 	}
 	@Override
@@ -61,5 +61,6 @@ public class ScheduleBean {
 				+ ", travelDuration=" + travelDuration + ", availableDays=" + availableDays + ", departureTime="
 				+ departureTime + "]";
 	}
+	
 	
 }
