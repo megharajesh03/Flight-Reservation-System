@@ -1,34 +1,22 @@
 package com.ust.frs.bean;
 
+import java.time.LocalDate;
+
 public class ReservationBean {
-	private String reservationID;
-	private String userID;
-	private String scheduleID;
-	private String reservationType;
-	private String bookingDate;
+	private int reservationID;
+	private String userID;				//
+	private int scheduleID;				//
+	private String reservationType;		//
+	private String bookingDate;			//
 	private String journeyDate;
-	private int noOfSeats;
-	private double totalFare;
+	private int noOfSeats;				//
+	private double totalFare;			//
 	private int bookingStatus;
-	/*
-	public ReservationBean(String reservationID, String userID, String scheduleID, String reservationType,
-			String bookingDate, String journeyDate, int noOfSeats, double totalFare, int bookingStatus) {
-		super();
-		this.reservationID = reservationID;
-		this.userID = userID;
-		this.scheduleID = scheduleID;
-		this.reservationType = reservationType;
-		this.bookingDate = bookingDate;
-		this.journeyDate = journeyDate;
-		this.noOfSeats = noOfSeats;
-		this.totalFare = totalFare;
-		this.bookingStatus = bookingStatus;
-	}
-	*/
-	public String getReservationID() {
+	
+	public int getReservationID() {
 		return reservationID;
 	}
-	public void setReservationID(String reservationID) {
+	public void setReservationID(int reservationID) {
 		this.reservationID = reservationID;
 	}
 	public String getUserID() {
@@ -37,10 +25,10 @@ public class ReservationBean {
 	public void setUserID(String userID) {
 		this.userID = userID;
 	}
-	public String getScheduleID() {
+	public int getScheduleID() {
 		return scheduleID;
 	}
-	public void setScheduleID(String scheduleID) {
+	public void setScheduleID(int scheduleID) {
 		this.scheduleID = scheduleID;
 	}
 	public String getReservationType() {

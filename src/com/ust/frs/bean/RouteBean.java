@@ -6,16 +6,7 @@ public class RouteBean {
 	private String destination;
 	private int distance;
 	private double fare;
-	/*
-	public RouteBean(String routeID, String source, String destination, int distance, double fare) {
-		super();
-		this.routeID = routeID;
-		this.source = source;
-		this.destination = destination;
-		this.distance = distance;
-		this.fare = fare;
-	}
-	*/
+	
 	public int getRouteID() {
 		return routeID;
 	}

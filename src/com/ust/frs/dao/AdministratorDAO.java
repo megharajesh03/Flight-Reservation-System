@@ -17,7 +17,7 @@ public class AdministratorDAO implements Administrator {
 	public static Connection getCon() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","pass@word1");	
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/airon","root","pass@word1");	
 		}
 		catch(ClassNotFoundException cnf) {
 			System.out.println(cnf);
@@ -31,7 +31,7 @@ public class AdministratorDAO implements Administrator {
 	public String addFlight(FlightBean fb) {
 		int i=0;
 		try {
-			ps = con.prepareStatement("insert into flights (FlightName,SeatingCapacity,ReservationCapacity) values(?,?,?)");
+			ps = con.prepareStatement("insert into frs_tbl_flight (FlightName,SeatingCapacity,ReservationCapacity) values(?,?,?)");
 			ps.setString(1, fb.getFlightName());
 			ps.setInt(2, fb.getSeatingCapacity());
 			ps.setInt(3, fb.getReservationCapacity());
@@ -47,10 +47,9 @@ public class AdministratorDAO implements Administrator {
 	public boolean modifyFlight(FlightBean fb) {
 		int i = 0;
 		try {
-			// Start the SQL update query
-			StringBuilder query = new StringBuilder("UPDATE flights SET ");
 
-			// Conditionally add columns to update based on user input
+			StringBuilder query = new StringBuilder("UPDATE frs_tbl_flight SET ");
+
 			boolean first = true;
 
 			if (fb.getFlightName() != null && !fb.getFlightName().isEmpty()) {
@@ -89,9 +88,8 @@ public class AdministratorDAO implements Administrator {
 				ps.setInt(index++, fb.getReservationCapacity());
 			}
 
-			ps.setInt(index, fb.getFlightID());  // Set the FlightId for the WHERE clause
+			ps.setInt(index, fb.getFlightID());
 
-			// Execute the update
 			i = ps.executeUpdate();
 		} catch (SQLException sql) {
 			System.out.println(sql);
@@ -104,7 +102,7 @@ public class AdministratorDAO implements Administrator {
 	public boolean removeFlight(int flightId) {
 		int i=0;
 		try {
-			ps = con.prepareStatement("delete from flights where FlightId =?");
+			ps = con.prepareStatement("delete from frs_tbl_flight where FlightId =?");
 			ps.setInt(1, flightId);
 			i=ps.executeUpdate();
 		}
@@ -117,7 +115,7 @@ public class AdministratorDAO implements Administrator {
 	public FlightBean viewByFlightId(int flightId) {
 		FlightBean fb = new FlightBean();
 		try {
-			ps = con.prepareStatement("select * from flights where FlightId =?");
+			ps = con.prepareStatement("select * from frs_tbl_flight where FlightId =?");
 			ps.setInt(1, flightId);
 			rs=ps.executeQuery();
 			if (rs.next()) {
@@ -136,7 +134,7 @@ public class AdministratorDAO implements Administrator {
 	public ArrayList<FlightBean> viewByAllFlights() {
 		ArrayList<FlightBean> all=new ArrayList<FlightBean>();
 		try	{
-			ps=con.prepareStatement("select * from flights");
+			ps=con.prepareStatement("select * from frs_tbl_flight");
 			rs=ps.executeQuery();
 			while(rs.next()) {
 				FlightBean fb=new FlightBean();
@@ -158,12 +156,12 @@ public class AdministratorDAO implements Administrator {
 	public String addSchedule(ScheduleBean sb) {
 		int i=0;
 		try {
-			ps = con.prepareStatement("insert into schedule ( Flightid, Routeid, TravelDuration, AvailableDays, DepartureTime) values(?,?,?,?,?)");
+			ps = con.prepareStatement("insert into frs_tbl_schedule ( FlightId, RouteId, TravelDuration, AvailableDays, DepartureTime) values(?,?,?,?,?)");
 			ps.setInt(1, sb.getFlightID());
 			ps.setInt(2, sb.getRouteID());
 			ps.setInt(3, sb.getTravelDuration());
 			ps.setString(4, sb.getAvailableDays());
-			ps.setInt(5, sb.getDepartureTime());
+			ps.setString(5, sb.getDepartureTime());
 			i=ps.executeUpdate();
 		}
 		catch (SQLException sql) {
@@ -176,10 +174,8 @@ public class AdministratorDAO implements Administrator {
 	public boolean modifySchedule(ScheduleBean sb) {
 		int i = 0;
 		try {
-			// Start the SQL update query
-			StringBuilder query = new StringBuilder("UPDATE schedule SET ");
+			StringBuilder query = new StringBuilder("UPDATE frs_tbl_schedule SET ");
 
-			// Conditionally add columns to update based on user input
 			boolean first = true;
 
 			if (sb.getTravelDuration() > 0) {
@@ -194,19 +190,18 @@ public class AdministratorDAO implements Administrator {
 				first = false;
 			}
 
-			if (sb.getDepartureTime() > 0) {
+			if (sb.getDepartureTime() != null && !sb.getDepartureTime().isEmpty()) {
 				if (!first) query.append(", ");
 				query.append("DepartureTime = ?");
 				first = false;
 			}
 
-			query.append(" WHERE Scheduleid = ?");
+			query.append(" WHERE ScheduleId = ?");
 
 			ps = con.prepareStatement(query.toString());
 
 			int index = 1;
 
-			// Set parameters for each field based on user input
 			if (sb.getTravelDuration() > 0) {
 				ps.setInt(index++, sb.getTravelDuration());
 			}
@@ -215,14 +210,12 @@ public class AdministratorDAO implements Administrator {
 				ps.setString(index++, sb.getAvailableDays());
 			}
 
-			if (sb.getDepartureTime() > 0) {
-				ps.setInt(index++, sb.getDepartureTime());
+			if (sb.getDepartureTime() != null && !sb.getDepartureTime().isEmpty()) {
+				ps.setString(index++, sb.getDepartureTime());
 			}
 
-			// Set the ScheduleId for the WHERE clause
 			ps.setInt(index, sb.getScheduleID());
 
-			// Execute the update
 			i = ps.executeUpdate();
 		} catch (SQLException sql) {
 			System.out.println(sql);
@@ -235,7 +228,7 @@ public class AdministratorDAO implements Administrator {
 	public boolean removeSchedule(int scheduleId) {
 		int i=0;
 		try {
-			ps = con.prepareStatement("delete from schedule where scheduleid =?");
+			ps = con.prepareStatement("delete from frs_tbl_schedule where ScheduleId =?");
 			ps.setInt(1, scheduleId);
 			i=ps.executeUpdate();
 		}
@@ -249,7 +242,7 @@ public class AdministratorDAO implements Administrator {
 	public String addRoute(RouteBean rb) {
 		int i=0;
 		try {
-			ps = con.prepareStatement("insert into route ( Source, Destination, Distance, Fare) values(?,?,?,?)");
+			ps = con.prepareStatement("insert into frs_tbl_route ( Source, Destination, Distance, Fare) values(?,?,?,?)");
 			ps.setString(1, rb.getSource());
 			ps.setString(2, rb.getDestination());
 			ps.setInt(3, rb.getDistance());
@@ -268,7 +261,7 @@ public class AdministratorDAO implements Administrator {
 		int i = 0;
 		try {
 
-			StringBuilder query = new StringBuilder("UPDATE route SET ");
+			StringBuilder query = new StringBuilder("UPDATE frs_tbl_route SET ");
 
 			boolean first = true;
 
@@ -328,7 +321,7 @@ public class AdministratorDAO implements Administrator {
 	public boolean removeRoute(int routeId) {
 		int i=0;
 		try {
-			ps = con.prepareStatement("delete from route where Routeid =?");
+			ps = con.prepareStatement("delete from frs_tbl_route where RouteId =?");
 			ps.setInt(1, routeId);
 			i=ps.executeUpdate();
 		}
@@ -342,7 +335,7 @@ public class AdministratorDAO implements Administrator {
 	public RouteBean viewByRouteId(int routeId) {
 		RouteBean rb = new RouteBean();
 		try {
-			ps = con.prepareStatement("select * from route where Routeid =?");
+			ps = con.prepareStatement("select * from frs_tbl_route where RouteId =?");
 			ps.setInt(1, routeId);
 			rs=ps.executeQuery();
 			if (rs.next()) {
@@ -364,7 +357,7 @@ public class AdministratorDAO implements Administrator {
 	public ArrayList<RouteBean> viewByAllRoute(){
 		ArrayList<RouteBean> all=new ArrayList<RouteBean>();
 		try	{
-			ps=con.prepareStatement("select * from route");
+			ps=con.prepareStatement("select * from frs_tbl_route");
 			rs=ps.executeQuery();
 			while(rs.next()) {
 				RouteBean rb=new RouteBean();
@@ -387,7 +380,7 @@ public class AdministratorDAO implements Administrator {
 	public ArrayList<ScheduleBean> viewByAllSchedule() {
 		ArrayList<ScheduleBean> all=new ArrayList<ScheduleBean>();
 		try	{
-			ps=con.prepareStatement("select * from schedule");
+			ps=con.prepareStatement("select * from frs_tbl_schedule");
 			rs=ps.executeQuery();
 			while(rs.next()) {
 				ScheduleBean sb=new ScheduleBean();
@@ -396,7 +389,7 @@ public class AdministratorDAO implements Administrator {
 				sb.setRouteID(rs.getInt(3));
 				sb.setTravelDuration(rs.getInt(4));
 				sb.setAvailableDays(rs.getString(5));
-				sb.setDepartureTime(rs.getInt(6));
+				sb.setDepartureTime(rs.getString(6));
 				all.add(sb);
 			}
 		}
@@ -411,7 +404,7 @@ public class AdministratorDAO implements Administrator {
 	public ScheduleBean viewByScheduleId(int scheduleId) {
 		ScheduleBean sb = new ScheduleBean();
 		try {
-			ps = con.prepareStatement("select * from schedule where scheduleid =?");
+			ps = con.prepareStatement("select * from frs_tbl_schedule where ScheduleId =?");
 			ps.setInt(1, scheduleId);
 			rs=ps.executeQuery();
 			if (rs.next()) {
@@ -420,7 +413,7 @@ public class AdministratorDAO implements Administrator {
 				sb.setRouteID(rs.getInt(3));
 				sb.setTravelDuration(rs.getInt(4));
 				sb.setAvailableDays(rs.getString(5));
-				sb.setDepartureTime(rs.getInt(6));
+				sb.setDepartureTime(rs.getString(6));
 			}
 		}
 		catch (SQLException sql) {
@@ -430,9 +423,27 @@ public class AdministratorDAO implements Administrator {
 	}
 
 	@Override
-	public ArrayList<PassengerBean> viewPassengersByFlight(String scheduleId) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<PassengerBean> viewPassengersByFlight() {
+		ArrayList<PassengerBean> all=new ArrayList<PassengerBean>();
+		try	{
+			ps=con.prepareStatement("select * from frs_tbl_passenger");
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				PassengerBean pb=new PassengerBean();
+				pb.setPassengerID(rs.getInt(1));
+				pb.setReservationID(rs.getInt(2));
+				pb.setSeatNo(rs.getInt(3));
+				pb.setName(rs.getString(4));
+				pb.setGender(rs.getString(5));
+				pb.setAge(rs.getInt(6));
+				all.add(pb);
+			}
+		}
+		catch(SQLException sql)
+		{
+			System.out.println(sql);
+		}
+		return all;
 	}
 
 }

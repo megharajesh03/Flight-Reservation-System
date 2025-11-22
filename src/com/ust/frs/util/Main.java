@@ -5,19 +5,23 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import com.ust.frs.bean.*;
 import com.ust.frs.service.*;
 
 import com.ust.frs.dao.AdministratorDAO;
+import com.ust.frs.dao.CustomerDAO;
 
 
 public class Main {
 
 	private static Scanner sc = new Scanner(System.in);
 	private static Administrator adminService = new AdministratorDAO();
-	private static Customer customerService = new CustomerImpl();
+	private static Customer customerService = new CustomerDAO();
 	private static Authentication authService = new AuthenticationImpl();
 	
 	public static Connection con = getCon();
@@ -26,7 +30,7 @@ public class Main {
 	public static Connection getCon() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","pass@word1");	
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/airon","root","pass@word1");	
 		}
 		catch(ClassNotFoundException cnf) {
 			System.out.println(cnf);
@@ -38,12 +42,12 @@ public class Main {
 	}
 
 
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException {
 		System.out.println("========== Flight Reservation System ==========");
 		boolean running = true;
 
 		while (running) {
-			System.out.println("\n1. Login");
+			System.out.println("\n1. Login\n2. Register User");
 			System.out.println("0. Exit");
 			System.out.print("Enter choice: ");
 			int choice = sc.nextInt();
@@ -66,7 +70,7 @@ public class Main {
 				    String userType = null;
 
 				    try {
-				        String query = "SELECT Usertype FROM user_credentials WHERE Userid = ?";
+				        String query = "SELECT Usertype FROM frs_tbl_user_credentials WHERE Userid = ?";
 				        ps = con.prepareStatement(query);
 				        ps.setString(1, userId); 
 				        
@@ -100,6 +104,7 @@ public class Main {
 				}
 
 			}
+			case 2 -> registerUser();
 			case 0 -> {
 				running = false;
 				System.out.println("Exiting... Goodbye!");
@@ -127,46 +132,46 @@ public class Main {
 			System.out.println("AD-008	: Modify Route");
 			System.out.println("AD-009	: Add Schedule");
 			System.out.println("AD-010	: View All Schedules");
-			//          System.out.println("AD-010.1: View Schedule by ScheduleId");
+			System.out.println("AD-010.1: View Schedule by ScheduleId");
 			System.out.println("AD-011	: Delete Schedule");
 			System.out.println("AD-012	: Modify Schedule");
-			//          System.out.println("AD-013	: View Passenger");
+			System.out.println("AD-013	: View Passenger");
 			System.out.println("AD-000	: Back");
 			System.out.print("Choice: ");
 			String ch = sc.nextLine();
 
 			switch (ch) {
-			case "AD-001" -> addFlight();
-			case "AD-002" -> viewFlights();
-			case "AD-002.1"-> viewByFlightId();
-			case "AD-003" -> deleteFlight();
-			case "AD-004" -> modifyFlight();
-
-			case "AD-005" -> addRoute();
-			case "AD-006" -> viewRoutes();
-			case "AD-006.1" -> viewByRouteId();
-			case "AD-007" -> deleteRoute();
-			case "AD-008" -> modifyRoute();
-
-			case "AD-009" -> addSchedule();
-			case "AD-010" -> viewSchedules();
-			case "AD-010.1" -> viewByScheduleId();           
-			case "AD-011" -> deleteSchedule();
-			case "AD-012" -> modifySchedule();
-			//	            case "AD-013" -> viewPassenger();
-			case "AD-000" -> back = true;
-			default -> System.out.println("Invalid choice.");
+				case "AD-001" -> addFlight();
+				case "AD-002" -> viewFlights();
+				case "AD-002.1"-> viewByFlightId();
+				case "AD-003" -> deleteFlight();
+				case "AD-004" -> modifyFlight();
+	
+				case "AD-005" -> addRoute();
+				case "AD-006" -> viewRoutes();
+				case "AD-006.1" -> viewByRouteId();
+				case "AD-007" -> deleteRoute();
+				case "AD-008" -> modifyRoute();
+	
+				case "AD-009" -> addSchedule();
+				case "AD-010" -> viewSchedules();
+				case "AD-010.1" -> viewByScheduleId();           
+				case "AD-011" -> deleteSchedule();
+				case "AD-012" -> modifySchedule();
+		        case "AD-013" -> viewPassenger();
+				case "AD-000" -> back = true;
+				default -> System.out.println("Invalid choice.");
 			}
 		}
 	}
 
 
 	/* ---------------- CUSTOMER MENU ---------------- */
-	private static void customerMenu() {
+	private static void customerMenu() throws ParseException {
 		boolean back = false;
 		while (!back) {
 			System.out.println("\n---- Customer Menu ----");
-			//			System.out.println("US-001: Register User Profile");
+			System.out.println("US-001: Register User Profile");
 			System.out.println("US-002: View Schedule by Route");
 			System.out.println("US-003: Reserve Ticket");
 			System.out.println("US-004: Cancel Ticket");
@@ -176,23 +181,37 @@ public class Main {
 			String ch = sc.nextLine();
 
 			switch (ch) {
-			//              case "US-001" -> RegisterUser();
-			case "US-002" -> viewScheduleByRoute();
-			case "US-003" -> reserveTicket();
-			case "US-004" -> cancelTicket();
-			case "US-005" -> viewTicket();
-			case "US-000" -> back = true;
-			default -> System.out.println("Invalid choice.");
+              	case "US-001" -> registerUserProfile();
+				case "US-002" -> viewScheduleByRoute();
+				case "US-003" -> reserveTicket();
+				case "US-004" -> cancelTicket();
+				case "US-005" -> viewTicket();
+				case "US-000" -> back = true;
+				default -> System.out.println("Invalid choice.");
 			}
 		}
 	}
 
+	
+	
+	
+	private static void registerUser() {
+		CredentialsBean cb = new CredentialsBean();
+		System.out.print("Enter UserID: ");
+		cb.setUserID(sc.nextLine());
+	    System.out.print("Enter Password: ");
+	    cb.setPassword(sc.nextLine());
+	    
+		String result = customerService.registerUser(cb);
+		System.out.println("Register user "+cb.getUserID()+" :" + result);
+	    
+	}
+	
+	
 	/* ---------------- ADMIN FUNCTIONS ---------------- */
 
 	private static void addFlight() {
 		FlightBean f = new FlightBean();
-		//        System.out.print("Enter Flight ID: ");
-		//        f.setFlightID(sc.nextLine());
 		System.out.print("Enter Flight Name: ");
 		f.setFlightName(sc.nextLine());
 		System.out.print("Enter Seating Capacity: ");
@@ -209,11 +228,6 @@ public class Main {
 		ArrayList<FlightBean> al;
 		al = adminService.viewByAllFlights();
 		al.forEach(System.out::println);
-		//		String str="";
-		//		for(FlightBean f:al) {
-		//			str+=f.getFlightID()+" "+f.getFlightName()+" "+f.getSeatingCapacity()+" "+f.getReservationCapacity()+"\n";
-		//		}
-		//		JOptionPane.showMessageDialog(null, str);
 	}
 
 	private static void viewByFlightId() {
@@ -361,9 +375,8 @@ public class Main {
 		System.out.print("Enter Available Days (Eg: Mon, Wed, Fri): ");
 		s.setAvailableDays(sc.nextLine());
 
-		System.out.print("Enter Departure Time (Eg: 6PM is entered as 1800): ");
-		s.setDepartureTime(sc.nextInt());
-		sc.nextLine();
+		System.out.print("Enter Departure Time (24-hr format): ");
+		s.setDepartureTime(sc.nextLine());
 
 		System.out.print("Enter Travel Duration (in mins): ");
 		s.setTravelDuration(sc.nextInt());
@@ -409,9 +422,9 @@ public class Main {
 		System.out.print("Enter new Departure Time (leave blank to keep current): ");
 		String newDepStr = sc.nextLine();  
 		if (!newDepStr.isEmpty()) {  
-			int newDep = Integer.parseInt(newDepStr);  // Convert to int
-			existing.setDepartureTime(newDep);  
+		    existing.setDepartureTime(newDepStr);  
 		}
+
 
 		System.out.print("Enter new Travel Duration (leave blank to keep current): ");
 		String newDurationStr = sc.nextLine();  
@@ -429,35 +442,73 @@ public class Main {
 		System.out.println(updated ? "Schedule updated!" : "Update failed.");
 	}
 
-
+	//The admin should be able to view details of passengers traveling on a particular flight on a particular date of journey 
+	private static void viewPassenger() {
+		ArrayList<PassengerBean> al;
+//		System.out.println("Enter Flight ID to view passengers:");
+//		int fid=sc.nextInt();
+//		sc.nextLine();
+		al = adminService.viewPassengersByFlight();
+		al.forEach(System.out::println);
+	}
 
 	/* ---------------- CUSTOMER FUNCTIONS ---------------- */
-
-	private static void viewScheduleByRoute() {
-		System.out.print("Enter Source: ");
-		String src = sc.nextLine();
-		System.out.print("Enter Destination: ");
-		String dest = sc.nextLine();
-		System.out.print("Enter Date (DD-MM-YYYY or any string): ");
-		String date = sc.nextLine();
-
-		ArrayList<ScheduleBean> schedules = customerService.viewScheduleByRoute(src, dest, date);
-		if (schedules.isEmpty()) System.out.println("No schedules found!");
-		else schedules.forEach(System.out::println);
+	
+	private static void registerUserProfile() {
+		
 	}
+	
+	private static void viewScheduleByRoute() throws ParseException {
+	    System.out.print("Enter Source: ");
+	    String src = sc.nextLine();
+	    System.out.print("Enter Destination: ");
+	    String dest = sc.nextLine();
+	    System.out.print("Enter Date (DD-MM-YYYY or any string): ");
+	    String date = sc.nextLine();
+
+	    ArrayList<ScheduleBean> schedules = customerService.viewScheduleByRoute(src, dest, date);
+
+	    if (schedules.isEmpty()) {
+	        System.out.println("No schedules found!");
+	    } else {
+	        schedules.forEach(System.out::println);  
+	    }
+	}
+
 
 	private static void reserveTicket() {
 		ReservationBean rb = new ReservationBean();
+		rb.setBookingStatus(0);
 		System.out.print("Enter User ID: ");
 		rb.setUserID(sc.nextLine());
 		System.out.print("Enter Schedule ID: ");
-		rb.setScheduleID(sc.nextLine());
-		System.out.print("Enter No. of Seats: ");
+		int scid=sc.nextInt();
+		sc.nextLine();
+		rb.setScheduleID(scid);
+		
+		
+		System.out.println("Enter Reservation Type:\n\t1. Economy\n\t2. Business\n\t3. First Class");
+		int ch=sc.nextInt();
+		sc.nextLine();
+		String res= switch(ch) {
+			case 1 -> "Economy";
+			case 2 -> "Business";
+			case 3 -> "First Class";
+			default->"invalid input";
+		};
+		rb.setReservationType(res);
+		
+		LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        rb.setBookingDate(today.format(formatter)); 
+        //journey date
+        System.out.print("Enter Journey Date: ");
+        rb.setJourneyDate(sc.nextLine());
+        
+        System.out.print("Enter No. of Seats: ");
 		rb.setNoOfSeats(sc.nextInt());
 		sc.nextLine();
-		rb.setTotalFare(rb.getNoOfSeats() * 6000.0); // simple fare calc
-		sc.nextLine();
-
+		System.out.println("Enter passernger details:");
 		ArrayList<PassengerBean> passengers = new ArrayList<>();
 		for (int i = 0; i < rb.getNoOfSeats(); i++) {
 			PassengerBean p = new PassengerBean();
@@ -468,28 +519,60 @@ public class Main {
 			System.out.print("Age: ");
 			p.setAge(sc.nextInt());
 			sc.nextLine();
+			System.out.print("SeatNo: ");
+			p.setSeatNo(sc.nextInt());
+			sc.nextLine();
 			passengers.add(p);
 		}
+		
+		int fare=-1;
+		 try {
+			 String query = "SELECT r.fare FROM frs_tbl_route r, frs_tbl_schedule s WHERE s.ScheduleId = ? AND r.RouteId = s.RouteId";
+			 ps = con.prepareStatement(query);
+		     ps.setInt(1, scid); 
+		        
+		     rs = ps.executeQuery();
+		     if (rs.next()) {
+		    	 fare = rs.getInt(1);
+		     }
+		 } catch (SQLException sql) {
+			 System.out.println(sql);
+		 }
+		
+		 rb.setTotalFare(rb.getNoOfSeats() * fare); // simple fare calc
+		 sc.nextLine();		
 
-		String result = customerService.reserveTicket(rb, passengers);
-		System.out.println("Reservation Result: " + result);
+		 String result = customerService.reserveTicket(rb, passengers);
+		 System.out.println("Reservation Result: " + result);
+		
 	}
 
 	private static void cancelTicket() {
 		System.out.print("Enter Reservation ID to cancel: ");
-		String id = sc.nextLine();
+		int id = sc.nextInt();
+		sc.nextLine();
 		boolean cancelled = customerService.cancelTicket(id);
 		System.out.println(cancelled ? "Ticket cancelled!" : "Reservation not found!");
 	}
 
 	private static void viewTicket() {
 		System.out.print("Enter Reservation ID: ");
-		String id = sc.nextLine();
-		Map<ReservationBean, PassengerBean> ticket = customerService.viewTicket(id);
+		int id = sc.nextInt();
+		sc.nextLine();
+		Map<ReservationBean, List<PassengerBean>> ticket = customerService.viewTicket(id);
 		if (ticket.isEmpty()) System.out.println("No ticket found!");
 		else ticket.forEach((res, pass) -> {
 			System.out.println(res);
-			System.out.println(pass);
+			if(pass.isEmpty()) {
+				System.out.println("No passengers found.");
+			}
+			else {
+				System.out.println("\nPassenger Details:");
+                pass.forEach(passenger -> {
+                	System.out.println(pass);
+                });
+			}
 		});
 	}
+
 }

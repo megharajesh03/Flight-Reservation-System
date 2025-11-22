@@ -1,10 +1,12 @@
 package com.ust.frs.bean;
 
+import java.sql.Date;
+
 public class ProfileBean {
 	private String userID;
 	private String firstName;
 	private String lastname;
-	private String dateOfBirth;
+	private Date dateOfBirth;
 	private String gender;
 	private String street;
 	private String location;
@@ -17,26 +19,7 @@ public class ProfileBean {
 	public String getUserID() {
 		return userID;
 	}
-	/*
-	public ProfileBean(String userID, String firstName, String lastname, String dateOfBirth, String gender,
-			String street, String location, String city, String state, String pincode, String mobileNo, String emailID,
-			String password) {
-		super();
-		this.userID = userID;
-		this.firstName = firstName;
-		this.lastname = lastname;
-		this.dateOfBirth = dateOfBirth;
-		this.gender = gender;
-		this.street = street;
-		this.location = location;
-		this.city = city;
-		this.state = state;
-		this.pincode = pincode;
-		this.mobileNo = mobileNo;
-		this.emailID = emailID;
-		this.password = password;
-	}
-	*/
+	
 	public void setUserID(String userID) {
 		this.userID = userID;
 	}
@@ -52,10 +35,10 @@ public class ProfileBean {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-	public String getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
-	public void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	public String getGender() {

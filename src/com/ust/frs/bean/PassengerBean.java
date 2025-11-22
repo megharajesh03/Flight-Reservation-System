@@ -1,26 +1,18 @@
 package com.ust.frs.bean;
 
 public class PassengerBean {
-	private String reservationID;
+	private int passengerID;
+	private int reservationID;
 	private String name;
 	private String gender;
 	private int age;
 	private int seatNo;
-		/*
-	public PassengerBean(String reservationID, String name, String gender, int age, int seatNo) {
-		super();
-		this.reservationID = reservationID;
-		this.name = name;
-		this.gender = gender;
-		this.age = age;
-		this.seatNo = seatNo;
-	}
-	*/
+
 	
-	public String getReservationID() {
+	public int getReservationID() {
 		return reservationID;
 	}
-	public void setReservationID(String reservationID) {
+	public void setReservationID(int reservationID) {
 		this.reservationID = reservationID;
 	}
 	public String getName() {
@@ -52,6 +44,12 @@ public class PassengerBean {
 	public String toString() {
 		return "PassengerBean [reservationID=" + reservationID + ", name=" + name + ", gender=" + gender + ", age="
 				+ age + ", seatNo=" + seatNo + "]";
+	}
+	public int getPassengerID() {
+		return passengerID;
+	}
+	public void setPassengerID(int passengerID) {
+		this.passengerID = passengerID;
 	}
 	
 }

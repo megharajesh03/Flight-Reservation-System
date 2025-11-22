@@ -15,7 +15,7 @@ public class AuthenticationImpl implements Authentication {
 	public static Connection getCon() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","pass@word1");	
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/airon","root","pass@word1");	
 		}
 		catch(ClassNotFoundException cnf) {
 			System.out.println(cnf);
@@ -31,7 +31,7 @@ public class AuthenticationImpl implements Authentication {
     	    boolean isValid = false; // Variable to hold the validation result
     	    try {
 
-    	        ps = con.prepareStatement("SELECT * FROM user_credentials WHERE Userid = ? AND Password = ?");
+    	        ps = con.prepareStatement("SELECT * FROM frs_tbl_user_credentials WHERE Userid = ? AND Password = ?");
     	        
     	        ps.setString(1, cb.getUserID());   
     	        ps.setString(2, cb.getPassword()); 
@@ -59,7 +59,7 @@ public class AuthenticationImpl implements Authentication {
     public boolean changeLoginStatus(CredentialsBean credentials, int status) {
         boolean isUpdated = false;
         try {
-            String query = "UPDATE user_credentials SET Loginstatus = ? WHERE Userid = ?";
+            String query = "UPDATE frs_tbl_user_credentials SET Loginstatus = ? WHERE Userid = ?";
             ps = con.prepareStatement(query);
             
             ps.setInt(1, status);

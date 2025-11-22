@@ -5,15 +5,7 @@ public class FlightBean {
 	private String flightName;
 	private int seatingCapacity;
 	private int reservationCapacity;
-	/*
-	public FlightBean(String flightID, String flightName, int seatingCapacity, int reservationCapacity) {
-		super();
-		this.flightID = flightID;
-		this.flightName = flightName;
-		this.seatingCapacity = seatingCapacity;
-		this.reservationCapacity = reservationCapacity;
-	}
-	*/
+	
 	public int getFlightID() {
 		return flightID;
 	}
