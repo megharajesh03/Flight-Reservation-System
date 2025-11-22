@@ -18,6 +18,7 @@ import java.util.Map;
 
 import com.ust.frs.bean.CredentialsBean;
 import com.ust.frs.bean.PassengerBean;
+import com.ust.frs.bean.ProfileBean;
 import com.ust.frs.bean.ReservationBean;
 import com.ust.frs.bean.ScheduleBean;
 import com.ust.frs.service.Customer;
@@ -150,7 +151,9 @@ public class CustomerDAO implements Customer {
 	    } catch (SQLException sql) {
 	        System.out.println("SQL Error: " + sql);
 	    }
-
+	    System.out.println("Reservation ID generated: "+reservationId);
+	    System.out.println("Please mark");
+	    
 	    // Return success if at least one row was affected
 	    return (i > 0) ? "SUCCESS" : "FAIL";
 	}
@@ -231,9 +234,46 @@ public class CustomerDAO implements Customer {
 	}
 
 	@Override
-	public String registerUserProfile() {
-		// TODO Auto-generated method stub
-		return null;
+	public String registerUserProfile(ProfileBean p) {
+		int i=0;
+		try {
+			ps = con.prepareStatement("INSERT INTO frs_tbl_user_profile (\r\n"
+					+ "    UserId, \r\n"
+					+ "    FirstName, \r\n"
+					+ "    LastName, \r\n"
+					+ "    DateOfBirth, \r\n"
+					+ "    Gender, \r\n"
+					+ "    Street, \r\n"
+					+ "    Location, \r\n"
+					+ "    City, \r\n"
+					+ "    State, \r\n"
+					+ "    PinCode, \r\n"
+					+ "    MobileNo, \r\n"
+					+ "    EmailId\r\n"
+					+ ") \r\n"
+					+ "VALUES (\r\n"
+					+ "    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?\r\n"
+					+ ");\r\n"
+					+ "");
+			ps.setString(1, p.getUserID());
+			ps.setString(2, p.getFirstName());
+			ps.setString(3, p.getLastName());
+			ps.setString(4, p.getDateOfBirth());
+			ps.setString(5, p.getGender());
+			ps.setString(6, p.getStreet());
+			ps.setString(7, p.getLocation());
+			ps.setString(8, p.getCity());
+			ps.setString(9, p.getState());
+			ps.setString(10, p.getPincode());
+			ps.setString(11, p.getMobileNo());
+			ps.setString(12, p.getEmailID());
+			
+			i=ps.executeUpdate();
+		}
+		catch (SQLException sql) {
+			System.out.println(sql);
+		}
+		return (i==1)? "SUCCESS" : "FAIL";
 	}
 
 	

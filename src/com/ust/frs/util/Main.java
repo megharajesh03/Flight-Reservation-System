@@ -41,12 +41,12 @@ public class Main {
 		return con;
 	}
 
-
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException {
 		System.out.println("========== Flight Reservation System ==========");
 		boolean running = true;
-
+		
 		while (running) {
+			
 			System.out.println("\n1. Login\n2. Register User");
 			System.out.println("0. Exit");
 			System.out.print("Enter choice: ");
@@ -455,6 +455,46 @@ public class Main {
 	/* ---------------- CUSTOMER FUNCTIONS ---------------- */
 	
 	private static void registerUserProfile() {
+		ProfileBean p = new ProfileBean();
+
+		System.out.print("Enter User ID : ");
+		p.setUserID(sc.nextLine());
+		
+		System.out.print("Enter First Name : ");
+		p.setFirstName(sc.nextLine());
+		
+		System.out.print("Enter Last Name : ");
+		p.setLastName(sc.nextLine());
+		
+		System.out.print("Enter Date of Birth (dd-mm-yyyy): ");
+        p.setDateOfBirth(sc.nextLine());
+
+        System.out.print("Enter Gender (e.g., Male/Female): ");
+        p.setGender(sc.nextLine());
+
+        System.out.print("Enter Street Address: ");
+        p.setStreet(sc.nextLine());
+
+        System.out.print("Enter Location: ");
+        p.setLocation(sc.nextLine());
+
+        System.out.print("Enter City: ");
+        p.setCity(sc.nextLine());
+
+        System.out.print("Enter State: ");
+        p.setState(sc.nextLine());
+
+        System.out.print("Enter Pin Code: ");
+        p.setPincode(sc.nextLine());
+
+        System.out.print("Enter Mobile Number: ");
+        p.setMobileNo(sc.nextLine());
+
+        System.out.print("Enter Email ID: ");
+        p.setEmailID(sc.nextLine());
+		
+		String result = customerService.registerUserProfile(p);
+		System.out.println("User profile update: " + result);
 		
 	}
 	
@@ -569,7 +609,7 @@ public class Main {
 			else {
 				System.out.println("\nPassenger Details:");
                 pass.forEach(passenger -> {
-                	System.out.println(pass);
+                	System.out.println(passenger);
                 });
 			}
 		});
